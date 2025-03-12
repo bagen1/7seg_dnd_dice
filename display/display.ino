@@ -32,13 +32,6 @@
 // reduced; it's rarely used, see header file for syntax if needed.
 Adafruit_GC9A01A tft(TFT_CS, TFT_DC);
 
-#define SIGULAR_NUM_X 75 // Horizontal
-#define SIGULAR_NUM_Y 60 // Vertical
-
-#define TENS_NUM_X 15 // Horizontal
-#define TENS_NUM_Y 55 // Vertical
-
-
 void setup() {
     Serial.begin(9600);
     Serial.println("GC9A01A Test!");
@@ -66,19 +59,21 @@ void loop() {
         if (i <= 9)
         {
             tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(18);
-            tft.setCursor(SIGULAR_NUM_X, SIGULAR_NUM_Y);
+            tft.setCursor(75, 60);
             if (i == 1)
             {
                 tft.fillScreen(GC9A01A_RED);
             }
         }
-        else if (i > 9)
+        else if (i < 20)
         {
             tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(18);
-            tft.setCursor(TENS_NUM_X, TENS_NUM_Y);
+            tft.setCursor(15, 55);
+        }
+        else if (i < 30) {
+            tft.setCursor(22, 55);
             if (i == 20)
             {
-                tft.setCursor(22, TENS_NUM_Y);
                 tft.fillScreen(GC9A01A_GREEN);
                 tft.setTextColor(GC9A01A_BLACK);
             }
