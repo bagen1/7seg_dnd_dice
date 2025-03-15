@@ -19,7 +19,7 @@
 // Other RP2040-based boards might not have "D" pin defines as shown above
 // and will use GPIO bit numbers. On non-RP2040 boards, you can usually use
 // pin numbers silkscreened on the board.
-#define TFT_DC  7
+#define TFT_DC 7
 #define TFT_CS 10
 // If display breakout has a backlight control pin, that can be defined here
 // as TFT_BL. On some breakouts it's not needed, backlight is always on.
@@ -32,34 +32,38 @@
 // reduced; it's rarely used, see header file for syntax if needed.
 Adafruit_GC9A01A tft(TFT_CS, TFT_DC);
 
-void setup() {
+void setup()
+{
     Serial.begin(9600);
     Serial.println("GC9A01A Test!");
 
     tft.begin();
 
-  #if defined(TFT_BL)
+#if defined(TFT_BL)
     pinMode(TFT_BL, OUTPUT);
     digitalWrite(TFT_BL, HIGH); // Backlight on
-  #endif // end TFT_BL
+#endif                          // end TFT_BL
 
-  tft.fillScreen(GC9A01A_BLACK);
-  tft.setRotation(2);
-  tft.setCursor(50, 110);
-  tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(2);
-  tft.println("Hello World!");
-  delay(500);
+    tft.fillScreen(GC9A01A_BLACK);
+    tft.setRotation(2);
+    tft.setCursor(50, 110);
+    tft.setTextColor(GC9A01A_WHITE);
+    tft.setTextSize(2);
+    tft.println("Hello World!");
+    delay(500);
 }
 
-void loop() {
-    for (int i = 1; i <= 20; i++)
+void loop()
+{
+    for (int i = 1; i <= 100; i++)
     {
         tft.fillScreen(GC9A01A_BLACK);
         String num_str = String(i);
-        if (i <= 9)
+        if (i < 10)
         {
-            tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(18);
-            tft.setCursor(75, 60);
+            tft.setTextColor(GC9A01A_WHITE);
+            tft.setTextSize(25);
+            tft.setCursor(58, 35);
             if (i == 1)
             {
                 tft.fillScreen(GC9A01A_RED);
@@ -67,10 +71,14 @@ void loop() {
         }
         else if (i < 20)
         {
-            tft.setTextColor(GC9A01A_WHITE);  tft.setTextSize(18);
+            tft.setTextColor(GC9A01A_WHITE);
+            tft.setTextSize(18);
             tft.setCursor(15, 55);
         }
-        else if (i < 30) {
+        else if (i < 100)
+        {
+            tft.setTextColor(GC9A01A_WHITE);
+            tft.setTextSize(18);
             tft.setCursor(22, 55);
             if (i == 20)
             {
@@ -78,7 +86,14 @@ void loop() {
                 tft.setTextColor(GC9A01A_BLACK);
             }
         }
+        else if (i == 100)
+        {
+            tft.setTextColor(GC9A01A_WHITE);
+            tft.setTextSize(12);
+            tft.setCursor(15, 75);
+        }
         tft.println(num_str);
+        Serial.println(num_str);
         delay(600);
     }
 }
